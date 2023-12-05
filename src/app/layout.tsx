@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar'
-import Providers from '@/components/Providers'
 import { cn, constructMetadata } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 import './globals.css'
