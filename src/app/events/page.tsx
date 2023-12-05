@@ -60,7 +60,7 @@ import {
 
         <main className='mx-auto max-w-7xl md:p-10'>
             <div className='mt-8 gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0'>
-                    <h1 className='pb-14 max-w-5xl text-5xl font-bold md:text-6xl lg:text-7xl'>
+                    <h1 className='pb-14 max-w-5xl text-5xl font-bold md:text-5xl lg:text-6xl'>
                     Campus Events
                     </h1>
 
