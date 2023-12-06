@@ -6,6 +6,7 @@ import {
   useSupabaseClient, 
 } from '@supabase/auth-helpers-react';
 import { ArrowRight } from 'lucide-react'
+import MobileNav from './MobileNav'
 
 const Navbar = () => {
   const session = useSession(); // tokens, when session exists we have a user
@@ -41,7 +42,7 @@ const Navbar = () => {
             <span>Recommalendar.</span>
           </Link>
 
-          {/* <MobileNav isAuth={!!user} /> */}
+          <MobileNav isAuth={!!session} />
 
           <div className='hidden items-center space-x-4 sm:flex'>
             {session ? 

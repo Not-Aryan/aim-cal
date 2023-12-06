@@ -4,8 +4,15 @@ import { ArrowRight, Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { 
+  useSession, 
+  useSupabaseClient, 
+} from '@supabase/auth-helpers-react';
+import { Button } from './ui/button'
 
 const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
+  const supabase = useSupabaseClient(); // talk to supabase!
+
   const [isOpen, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => setOpen((prev) => !prev)
@@ -22,6 +29,26 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
     }
   }
 
+  async function googleSignIn() {
+    try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                scopes: 'https://www.googleapis.com/auth/calendar'
+            }
+        });
+
+        if (error) throw error;
+    } catch (error) {
+        alert("Error logging in to Google provider with Supabase");
+        console.error(error);
+        }
+  }
+
+  async function signOut() {
+    await supabase.auth.signOut();
+  }
+
   return (
     <div className='sm:hidden'>
       <Menu
@@ -34,57 +61,27 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
           <ul className='absolute bg-white border-b border-zinc-200 shadow-xl grid w-full gap-3 px-10 pt-20 pb-8'>
             {!isAuth ? (
               <>
-                <li>
-                  <Link
-                    onClick={() =>
-                      closeOnCurrent('/sign-up')
-                    }
-                    className='flex items-center w-full font-semibold text-green-600'
-                    href='/sign-up'>
-                    Get started
-                    <ArrowRight className='ml-2 h-5 w-5' />
-                  </Link>
-                </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li>
-                  <Link
+                  <Button
                     onClick={() =>
-                      closeOnCurrent('/sign-in')
+                      googleSignIn
                     }
                     className='flex items-center w-full font-semibold'
-                    href='/sign-in'>
+                    >
                     Sign in
-                  </Link>
+                  </Button>
                 </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
-                <li>
-                  <Link
-                    onClick={() =>
-                      closeOnCurrent('/pricing')
-                    }
-                    className='flex items-center w-full font-semibold'
-                    href='/pricing'>
-                    Pricing
-                  </Link>
-                </li>
               </>
             ) : (
               <>
-                <li>
-                  <Link
-                    onClick={() =>
-                      closeOnCurrent('/dashboard')
-                    }
-                    className='flex items-center w-full font-semibold'
-                    href='/dashboard'>
-                    Dashboard
-                  </Link>
-                </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li>
                   <Link
+                    onClick={signOut}
                     className='flex items-center w-full font-semibold'
-                    href='/sign-out'>
+                    href='/'>
                     Sign out
                   </Link>
                 </li>
