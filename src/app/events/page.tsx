@@ -14,7 +14,7 @@ import {
 import { buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
 import { useSession, useSupabaseClient, useSessionContext } from '@supabase/auth-helpers-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 
   const invoices = [
     {
@@ -74,34 +74,44 @@ import { useState, useEffect } from 'react';
 
     useEffect(() => {
         const fetchData = async () => {
-            if (session) {
-                try {
-                    const gcal_response = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
-                        headers: {
-                            'Authorization': `Bearer ${session.provider_token}`
-                        }
-                    });
-                    if (!gcal_response.ok) {
-                        throw new Error(`HTTP error! status: ${gcal_response.status}`);
-                    }
-                    const user_cal_data = await gcal_response.json();
-                    console.log(user_cal_data);
-
-                    const ml_res = await fetch('http://127.0.0.1:5000/process-cal', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({ user_cal: user_cal_data }),
-                    });
-                    const newEvent_data = await ml_res.json();
-
-                    setNewEvents(newEvent_data);
-
-                } catch (error) {
-                    console.error('Error fetching calendar data:', error);
+          if (session) {
+            try {
+              const gcal_response_calendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList/primary/events', {
+                headers: {
+                  'Authorization': `Bearer ${session.provider_token}`
                 }
+              });
+              if (!gcal_response_calendars.ok) {
+                throw new Error(`HTTP error! status: ${gcal_response_calendars.status}`);
+              }
+
+              const user_cal_data = await gcal_response_calendars.json();
+
+              console.log(user_cal_data)
+              // const user_events = [];
+
+              // for (const calendar of user_cal_data.items) {
+              //   const gcal_response_events = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events`, {
+              //     headers: {
+              //       'Authorization': `Bearer ${session.provider_token}`
+              //     }
+              //   });
+              //   if (!gcal_response_events.ok) {
+              //     throw new Error(`HTTP error! status: ${gcal_response_events.status}`);
+              //   }
+              //   const calendar_events = await gcal_response_events.json();
+              //   console.log(calendar_events);
+              //   user_events.push(...calendar_events.items);
+              // }
+
+              // console.log(user_events);
+
+              // Rest of the code...
+
+            } catch (error) {
+              console.error('Error fetching calendar data:', error);
             }
+          }
         };
 
         fetchData();
