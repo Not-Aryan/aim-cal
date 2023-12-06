@@ -66,6 +66,10 @@ import { useState, useEffect } from 'react';
     const supabase = useSupabaseClient(); // talk to supabase!
     const { isLoading } = useSessionContext();
 
+    if (isLoading) {
+      return <></>
+    }
+
     const [newEvents, setNewEvents] = useState('');
 
     useEffect(() => {
@@ -158,15 +162,7 @@ import { useState, useEffect } from 'react';
                         </>
                         :
                         <>
-                          <Link
-                            className={buttonVariants({
-                              size: 'lg',
-                              className: 'mt-5',
-                            })}
-                            href='/login'
-                            target='_blank'>
-                            Login
-                          </Link>
+                          <h1>You need to login to access new events</h1>
                         </>
                     }
             </div>
