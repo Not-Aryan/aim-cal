@@ -38,7 +38,7 @@ const Navbar = () => {
           <Link
             href='/'
             className='flex z-40 font-semibold'>
-            <span>calr.</span>
+            <span>Recommalendar.</span>
           </Link>
 
           {/* <MobileNav isAuth={!!user} /> */}

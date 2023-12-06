@@ -19,7 +19,7 @@ export default function Home() {
           in your calendar.
         </h1>
         <p className='mt-5 max-w-prose text-zinc-700 sm:text-lg'>
-          calr scans across all campus events, and based on your calendar history, recommends the ones you would like.
+          Recommalendar scans across all campus events, and based on your calendar history, recommends the ones you would like.
           Simply connect your calendar, and we'll do the rest.
         </p>
 
@@ -89,7 +89,7 @@ export default function Home() {
               Find events in minutes
             </h2>
             <p className='mt-4 text-lg text-gray-600'>
-              With calr, you will never miss an event again.
+              With Recommalendar, you will never miss an event again.
             </p>
           </div>
         </div>
@@ -139,7 +139,7 @@ export default function Home() {
                 Find new events
               </span>
               <span className='mt-2 text-zinc-700'>
-                It&apos;s that simple. Try out Calr today -
+                It&apos;s that simple. Try out Recommalendar today -
                 it really takes less than a minute.
               </span>
             </div>
