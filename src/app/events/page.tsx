@@ -90,8 +90,9 @@ import { useState, useEffect } from 'react';
                       },
                       body: JSON.stringify({ user_cal: user_cal_data }),
                     });
+                    const newEvent_data = await ml_res.json();
 
-                    setProcessedText(data.text);
+                    setNewEvents(newEvent_data);
 
                 } catch (error) {
                     console.error('Error fetching calendar data:', error);
