@@ -16,8 +16,8 @@ export function absoluteUrl(path: string) {
 }
 
 export function constructMetadata({
-  title = "Quill - the SaaS for students",
-  description = "Quill is an open-source software to make chatting to your PDF files easy.",
+  title = "Calr",
+  description = "Calr is a event recommendation service for students.",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
   noIndex = false
@@ -45,7 +45,7 @@ export function constructMetadata({
       title,
       description,
       images: [image],
-      creator: "@joshtriedcoding"
+      creator: "@aryanj"
     },
     icons,
     metadataBase: new URL('https://quill-jet.vercel.app'),
