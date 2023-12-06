@@ -76,7 +76,7 @@ import { useState, useEffect, use } from 'react';
         const fetchData = async () => {
           if (session) {
             try {
-              const gcal_response_calendars = await fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList/primary/events', {
+              const gcal_response_calendars = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
                 headers: {
                   'Authorization': `Bearer ${session.provider_token}`
                 }
@@ -88,26 +88,27 @@ import { useState, useEffect, use } from 'react';
               const user_cal_data = await gcal_response_calendars.json();
 
               console.log(user_cal_data)
-              // const user_events = [];
 
-              // for (const calendar of user_cal_data.items) {
-              //   const gcal_response_events = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events`, {
-              //     headers: {
-              //       'Authorization': `Bearer ${session.provider_token}`
-              //     }
-              //   });
-              //   if (!gcal_response_events.ok) {
-              //     throw new Error(`HTTP error! status: ${gcal_response_events.status}`);
-              //   }
-              //   const calendar_events = await gcal_response_events.json();
-              //   console.log(calendar_events);
-              //   user_events.push(...calendar_events.items);
-              // }
+              try {
+                const response = await fetch('https://rec-wjs4.onrender.com/hello-world/process-text', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ user_events: user_cal_data.items }),
+                });
+          
+                if (!response.ok) {
+                  throw new Error(`Error: ${response.status}`);
+                }
+          
+                const data = await response.json();
+                console.log(data);
+                // setNewEvents(data.text);
 
-              // console.log(user_events);
-
-              // Rest of the code...
-
+              } catch (error) {
+                console.error('Failed to process text:', error);
+              }
             } catch (error) {
               console.error('Error fetching calendar data:', error);
             }
@@ -115,7 +116,7 @@ import { useState, useEffect, use } from 'react';
         };
 
         fetchData();
-    }, [session]); // Dependency array includes supabase to ensure updated instance
+    }, []); // Dependency array includes supabase to ensure updated instance
 
     async function signOut() {
       await supabase.auth.signOut();
