@@ -103,9 +103,9 @@ import { useState, useEffect } from 'react';
         fetchData();
     }, [session]); // Dependency array includes supabase to ensure updated instance
 
-    // async function signOut() {
-    //   await supabase.auth.signOut();
-    // }
+    async function signOut() {
+      await supabase.auth.signOut();
+    }
 
     return (
         <main className='mx-auto max-w-7xl md:p-10'>
@@ -145,6 +145,16 @@ import { useState, useEffect } from 'react';
                                 </TableFooter> */}
                             </Table>
                           </div>
+                          {/* <div className="mt-10">
+                            <Link
+                              href='/'
+                              onClick={signOut}
+                              className={buttonVariants({
+                                size: 'sm',
+                              })}>
+                              Sign Out
+                            </Link>
+                          </div> */}
                         </>
                         :
                         <>

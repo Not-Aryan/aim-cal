@@ -30,7 +30,7 @@ export default function Home() {
           })}
           href='/events'
           target='_blank'>
-          Get started{' '}
+          Find events{' '}
           <ArrowRight className='ml-2 h-5 w-5' />
         </Link>
       </MaxWidthWrapper>
